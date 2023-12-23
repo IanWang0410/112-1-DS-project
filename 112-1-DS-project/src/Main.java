@@ -44,9 +44,9 @@ public class Main {
                     WordCounter count = new WordCounter(i.getUrl());
                     count.countKeyword(engine);
                     i.addScore(count.countKeyword(engine));
-                    // count.countKeyword(power);
-                    // count.countKeyword(torque);
-                    // count.countKeyword(transmission);
+                    i.addScore(count.countKeyword(power));
+                    i.addScore(count.countKeyword(torque));
+                    i.addScore(count.countKeyword(transmission));
                 }
                 break;
             case (3):
