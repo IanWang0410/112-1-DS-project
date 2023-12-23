@@ -94,6 +94,8 @@ public class WordCounter {
         int retVal = 0;
         int count = 0;
 
+        // ! Problem in the while loop, content is modified, which may be set to ""
+        // TODO Total rework on the following while loop
         while (content.length() > 0) {
             if (BoyerMoore(content, keyword.getName().toUpperCase()) != -1) {
                 count++;

@@ -27,7 +27,6 @@ public class Webs {
         }
     }
 
-    // ! obsolete method
     public void addScore(int i) {
         this.score += i;
     }

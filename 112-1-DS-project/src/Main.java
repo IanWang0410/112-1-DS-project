@@ -52,7 +52,6 @@ public class Main {
             case (3):
                 for (Webs i : html.webs) {
                     WordCounter count = new WordCounter(i.getUrl());
-                    count.countKeyword(productionBegan);
                     i.addScore(count.countKeyword(productionBegan));
                     i.addScore(count.countKeyword(timeline));
                     i.addScore(count.countKeyword(terroist));
@@ -71,12 +70,12 @@ public class Main {
                     // count.countKeyword(eur);
                 }
 
-                html.sortWebs(html.webs);
-                for (Webs w : html.sortedWebs) {
-                    System.out.printf("Title:  %s,URL:  %s,Score: %d", w.getTitle(), w.getUrl(), w.getScore());
-                }
-                sc.close();
-
         }
+        html.sortWebs(html.webs);
+        for (Webs w : html.sortedWebs) {
+            System.out.printf("Title:  %s,URL:  %s,Score: %d", w.getTitle(), w.getUrl(), w.getScore());
+        }
+        sc.close();
+
     }
 }

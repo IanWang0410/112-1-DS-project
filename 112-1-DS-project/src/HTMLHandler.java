@@ -19,6 +19,7 @@ public class HTMLHandler {
     public String content;
     public ArrayList<Webs> webs = new ArrayList<>();
     public ArrayList<Webs> sortedWebs = new ArrayList<>();
+    public WebTree webTree;
 
     public HTMLHandler(String searchKeyword) {
         this.searchKeyword = searchKeyword;
@@ -75,6 +76,7 @@ public class HTMLHandler {
                 }
 
                 System.out.println("Title: " + title + " , url: " + citeUrl);
+
                 webs.add(new Webs(title, citeUrl)); // adding the URLs found to the list
 
                 retVal.put(title, citeUrl);
