@@ -89,15 +89,17 @@ public class WordCounter {
             content = fetchContent();
         }
 
-        content = content.toUpperCase();
+        String contentModify = new String(content);
+
+        contentModify = contentModify.toUpperCase();
 
         int retVal = 0;
         int count = 0;
 
         // ! Problem in the while loop, content is modified, which may be set to ""
         // TODO Total rework on the following while loop
-        while (content.length() > 0) {
-            if (BoyerMoore(content, keyword.getName().toUpperCase()) != -1) {
+        while (contentModify.length() > 0) {
+            if (BoyerMoore(contentModify, keyword.getName().toUpperCase()) != -1) {
                 count++;
                 if (count == 1) {
                     retVal += keyword.getWeight() * 10;
@@ -105,10 +107,10 @@ public class WordCounter {
                     retVal += keyword.getWeight();
                 }
 
-                content = content.substring(
-                        BoyerMoore(content, keyword.getName().toUpperCase()) + keyword.getName().length() - 1);
+                contentModify = contentModify.substring(
+                        BoyerMoore(contentModify, keyword.getName().toUpperCase()) + keyword.getName().length() - 1);
             } else {
-                content = "";
+                contentModify = "";
             }
         }
 

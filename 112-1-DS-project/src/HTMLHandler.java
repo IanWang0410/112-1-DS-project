@@ -88,22 +88,48 @@ public class HTMLHandler {
         return retVal;
     }
 
-    public void sortWebs(ArrayList<Webs> wlst) {
-        for (Webs w : wlst) {
-            if (sortedWebs.isEmpty()) {
-                sortedWebs.add(w);
-            } else {
-                for (Webs sw : sortedWebs) {
-                    if (w.getScore() <= sw.getScore()) {
-                        sortedWebs.add(sortedWebs.indexOf(sw), w);
-                        break;
-                    } else if (sortedWebs.size() == sortedWebs.indexOf(sw)) {
-                        sortedWebs.add(sortedWebs.size() - 1, w);
-                    } else {
-                        continue;
-                    }
-                }
+    // using in-;lace quick sort
+    public void sortWebs() {
+        if (webs.size() == 0)
+		{
+			System.out.println("InvalidOperation");
+		}
+		else
+		{
+			inPlaceQuickSort(0, webs.size() - 1);
+		}
+    }
+
+    public void inPlaceQuickSort(int l, int r){
+        if(l >= r){
+            return;
+        }
+
+        int piv = r;
+        int j = l, k = r - 1;
+        while (j < k) {
+            while (!(j >= k || webs.get(j).getScore() > webs.get(piv).getScore())) {
+                j++;
+            }
+            while (!(j >= k || webs.get(k).getScore() <= webs.get(piv).getScore())) {
+                k--;
+            }
+            if (j < k) {
+                swap(j, k);
             }
         }
+        swap(r, j);
+        inPlaceQuickSort(l, j-1);
+        inPlaceQuickSort(j+1, r);
+        
+
     }
+
+    private void swap(int aIndex, int bIndex)
+	{
+		Webs temp = webs.get(aIndex);
+		webs.set(aIndex, webs.get(bIndex));
+		webs.set(bIndex, temp);
+	}
+
 }
