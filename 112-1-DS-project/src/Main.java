@@ -71,8 +71,8 @@ public class Main {
                 }
 
         }
-        html.sortWebs(html.webs);
-        for (Webs w : html.sortedWebs) {
+        html.sortWebs();
+        for (Webs w : html.webs) {
             System.out.printf("Title:  %s,URL:  %s,Score: %d", w.getTitle(), w.getUrl(), w.getScore());
         }
         sc.close();
