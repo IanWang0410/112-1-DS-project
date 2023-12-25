@@ -89,7 +89,6 @@ public class HTMLHandler {
     }
 
     // using in-place quick sort
-    //! wrong direction, this is from smallest to largest
     public void sortWebs() {
         if (webs.size() == 0)
 		{
@@ -122,6 +121,10 @@ public class HTMLHandler {
         swap(r, j);
         inPlaceQuickSort(l, j-1);
         inPlaceQuickSort(j+1, r);
+
+        for(int i = webs.size()-1; i >= 0; i--){
+            sortedWebs.add(webs.get(i));
+        }
         
 
     }
