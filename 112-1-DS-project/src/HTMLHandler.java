@@ -74,7 +74,7 @@ public class HTMLHandler {
                 if (title.equals("")) {
                     continue;
                 }
-
+                
                 System.out.println("Title: " + title + " , url: " + citeUrl);
 
                 webs.add(new Webs(title, citeUrl)); // adding the URLs found to the list

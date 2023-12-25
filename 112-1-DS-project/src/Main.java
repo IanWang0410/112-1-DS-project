@@ -42,7 +42,7 @@ public class Main {
         priceKeywords.add(usd);
         priceKeywords.add(dollar); 
 
-        // Keywords trying to avoid due to unrealated content
+        // Keywords trying to avoid due to unrelated content
         Keyword attack = new Keyword("attack", -1000);
         Keyword terroist = new Keyword("terrorist", -1000);
         Keyword government = new Keyword("government", -1000);
@@ -66,24 +66,24 @@ public class Main {
         switch (type) {
             case (1):
                 for (Webs i : html.webs) {
-                    System.out.println("Loop Start\n");// * for testing, remember to delete 
+                    
                     WordCounter count = new WordCounter(i.getUrl());
-                    for (Keyword keywords : specsKeywords) {
-                        i.addScore(count.countKeyword(keywords));
-                    }
-                    System.out.println("Loop End\n");// * for testing, remember to delete 
+                    
+                    for (Keyword keywords : specsKeywords)
+                    	i.addScore(count.countKeyword(keywords));
+                    
                 }
-                break;
+            	break;
 
             case (3):
                 for (int iter = 0 ; iter < 4; iter++) {
-                    System.out.println("Loop start\n");// * for testing, remember to delete 
+                   
                     Webs i = html.webs.get(iter);
                     WordCounter count = new WordCounter(i.getUrl());
                     for (Keyword keywords : historyKeywords) {
                         i.addScore(count.countKeyword(keywords));
                     }                    
-                    System.out.println("Loop End\n");// * for testing, remember to delete 
+                    
                 }
                 break;
             case (2):
@@ -98,6 +98,7 @@ public class Main {
         }
 
         // filter unwanted result
+        /*
         for(int iter = 0; iter < 1000; iter++){
             Webs i = html.webs.get(iter);
             WordCounter count = new WordCounter(i.getUrl());
@@ -105,10 +106,10 @@ public class Main {
                 i.addScore(count.countKeyword(keyword));
             }
         }
-
+		*/
 
         html.sortWebs();
-        for (int i = 999; i >= 0; i--) {
+        for (int i = 0; i >= html.sortedWebs.size()-1; i--) {
             Webs w = html.sortedWebs.get(i);
             System.out.printf("Title:  %s , URL:  %s , Score: %.2f\n", w.getTitle(), w.getUrl(), w.getScore());
         }
