@@ -88,7 +88,8 @@ public class HTMLHandler {
         return retVal;
     }
 
-    // using in-;lace quick sort
+    // using in-place quick sort
+    //! wrong direction, this is from smallest to largest
     public void sortWebs() {
         if (webs.size() == 0)
 		{

@@ -42,6 +42,7 @@ public class WordCounter {
         }
     }
 
+    // ? Possible issue in the BoyerMoore method, scores for some website are questionablly low
     public int BoyerMoore(String T, String P) {
         int i = P.length() - 1;
         int j = P.length() - 1;
@@ -96,8 +97,8 @@ public class WordCounter {
         int retVal = 0;
         int count = 0;
 
-        // ! Problem in the while loop, content is modified, which may be set to ""
-        // TODO Total rework on the following while loop
+        
+        
         while (contentModify.length() > 0) {
             if (BoyerMoore(contentModify, keyword.getName().toUpperCase()) != -1) {
                 count++;

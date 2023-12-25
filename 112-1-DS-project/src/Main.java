@@ -40,7 +40,8 @@ public class Main {
 
         switch (type) {
             case (1):
-                for (Webs i : html.webs) {
+                for (int iter = 0 ; iter < 5; iter++) {
+                    Webs i = html.webs.get(iter);
                     WordCounter count = new WordCounter(i.getUrl());
                     count.countKeyword(engine);
                     i.addScore(count.countKeyword(engine));
@@ -49,8 +50,10 @@ public class Main {
                     i.addScore(count.countKeyword(transmission));
                 }
                 break;
+
             case (3):
-                for (Webs i : html.webs) {
+                for (int iter = 0 ; iter < 5; iter++) {
+                    Webs i = html.webs.get(iter);
                     WordCounter count = new WordCounter(i.getUrl());
                     i.addScore(count.countKeyword(productionBegan));
                     i.addScore(count.countKeyword(timeline));
@@ -61,7 +64,8 @@ public class Main {
                 }
                 break;
             case (2):
-                for (Webs i : html.webs) {
+                for (int iter = 0 ; iter < 5; iter++) {
+                    Webs i = html.webs.get(iter);
                     WordCounter count = new WordCounter(i.getUrl());
                     count.countKeyword($);
                     i.addScore(count.countKeyword($));
@@ -73,7 +77,7 @@ public class Main {
         }
         html.sortWebs();
         for (Webs w : html.webs) {
-            System.out.printf("Title:  %s,URL:  %s,Score: %d", w.getTitle(), w.getUrl(), w.getScore());
+            System.out.printf("Title:  %s,URL:  %s ,Score: %.2f\n", w.getTitle(), w.getUrl(), w.getScore());
         }
         sc.close();
 
