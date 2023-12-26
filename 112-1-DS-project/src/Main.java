@@ -19,12 +19,11 @@ public class Main {
         Keyword power = new Keyword("power", 5);
         Keyword torque = new Keyword("torque", 5);
         Keyword transmission = new Keyword("transmission", 5);
-        ArrayList <Keyword> specsKeywords = new ArrayList<>();
+        ArrayList<Keyword> specsKeywords = new ArrayList<>();
         specsKeywords.add(engine);
         specsKeywords.add(power);
         specsKeywords.add(torque);
         specsKeywords.add(transmission);
-        
 
         Keyword productionBegan = new Keyword("production began", 5);
         Keyword timeline = new Keyword("timeline", 5);
@@ -36,11 +35,11 @@ public class Main {
         Keyword usd = new Keyword("usd", 5);
         Keyword dollar = new Keyword("dollar", 5);
         Keyword eur = new Keyword("eur", 5);
-        ArrayList <Keyword> priceKeywords = new ArrayList<>();
+        ArrayList<Keyword> priceKeywords = new ArrayList<>();
         priceKeywords.add(eur);
         priceKeywords.add($);
         priceKeywords.add(usd);
-        priceKeywords.add(dollar); 
+        priceKeywords.add(dollar);
 
         // Keywords trying to avoid due to unrelated content
         Keyword attack = new Keyword("attack", -1000);
@@ -48,7 +47,7 @@ public class Main {
         Keyword government = new Keyword("government", -1000);
         Keyword national = new Keyword("national", -1000);
         Keyword software = new Keyword("software", -500);
-        ArrayList <Keyword> unwantedKeywords = new ArrayList<>();
+        ArrayList<Keyword> unwantedKeywords = new ArrayList<>();
         unwantedKeywords.add(attack);
         unwantedKeywords.add(terroist);
         unwantedKeywords.add(government);
@@ -66,50 +65,47 @@ public class Main {
         switch (type) {
             case (1):
                 for (Webs i : html.webs) {
-                    
+
                     WordCounter count = new WordCounter(i.getUrl());
-                    
+
                     for (Keyword keywords : specsKeywords)
-                    	i.addScore(count.countKeyword(keywords));
-                    
+                        i.addScore(count.countKeyword(keywords));
+
                 }
-            	break;
+                break;
 
             case (3):
-                for (int iter = 0 ; iter < 4; iter++) {
-                   
-                    Webs i = html.webs.get(iter);
+                for (Webs i : html.webs) {
                     WordCounter count = new WordCounter(i.getUrl());
                     for (Keyword keywords : historyKeywords) {
                         i.addScore(count.countKeyword(keywords));
-                    }                    
-                    
+                    }
+
                 }
                 break;
             case (2):
-                for (int iter = 0 ; iter < 1000; iter++) {
-                    Webs i = html.webs.get(iter);
+                for (Webs i : html.webs) {
                     WordCounter count = new WordCounter(i.getUrl());
                     for (Keyword keywords : priceKeywords) {
                         i.addScore(count.countKeyword(keywords));
-                    }                           
+                    }
                 }
 
         }
 
         // filter unwanted result
         /*
-        for(int iter = 0; iter < 1000; iter++){
-            Webs i = html.webs.get(iter);
-            WordCounter count = new WordCounter(i.getUrl());
-            for (Keyword keyword : unwantedKeywords) {
-                i.addScore(count.countKeyword(keyword));
-            }
-        }
-		*/
+         * for(int iter = 0; iter < 1000; iter++){
+         * Webs i = html.webs.get(iter);
+         * WordCounter count = new WordCounter(i.getUrl());
+         * for (Keyword keyword : unwantedKeywords) {
+         * i.addScore(count.countKeyword(keyword));
+         * }
+         * }
+         */
 
         html.sortWebs();
-        for (int i = 0; i >= html.sortedWebs.size()-1; i--) {
+        for (int i = 0; i <= html.sortedWebs.size() - 1; i++) {
             Webs w = html.sortedWebs.get(i);
             System.out.printf("Title:  %s , URL:  %s , Score: %.2f\n", w.getTitle(), w.getUrl(), w.getScore());
         }

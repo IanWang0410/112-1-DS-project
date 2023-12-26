@@ -24,11 +24,11 @@ public class WordCounter {
 		try {
 			URL u = new URL(urlStr);
 			URLConnection conn = u.openConnection();
-			conn.setReadTimeout(3 * 1000); //set timeout(milliseconds)
-			
+			conn.setReadTimeout(3 * 1000); // set timeout(milliseconds)
+
 			conn.setRequestProperty("User-agent", "Chrome/107.0.5304.107");
 			InputStream in = conn.getInputStream();
-			
+
 			InputStreamReader inReader = new InputStreamReader(in, "utf-8");
 			BufferedReader bufReader = new BufferedReader(inReader);
 			String line = null;
@@ -39,7 +39,7 @@ public class WordCounter {
 			return retVal;
 		} catch (IOException e) {
 			// webpage server refuses authorize
-			// System.out.println("ERROR 403");
+			System.out.println("ERROR 403");
 			return "";
 		}
 	}
