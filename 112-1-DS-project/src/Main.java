@@ -54,6 +54,24 @@ public class Main {
         unwantedKeywords.add(national);
         unwantedKeywords.add(software);
         unwantedKeywords.add(new Keyword("emergency number", -300));
+        unwantedKeywords.add(new Keyword("pistol", -100));
+        unwantedKeywords.add(new Keyword("medic", -100));
+        unwantedKeywords.add(new Keyword("job", -100));
+        unwantedKeywords.add(new Keyword("interview", -100));
+
+        ArrayList<Keyword> generalKeywords = new ArrayList<>();
+        generalKeywords.add(new Keyword("car", 10));
+        generalKeywords.add(new Keyword("sedan", 10));
+        generalKeywords.add(new Keyword("wagen", 10));
+        generalKeywords.add(new Keyword("automobil", 10));
+        generalKeywords.add(new Keyword("Toyota", 10));
+        generalKeywords.add(new Keyword("Nissan", 10));
+        generalKeywords.add(new Keyword("Honda", 10));
+        generalKeywords.add(new Keyword("bmw", 10));
+        generalKeywords.add(new Keyword("mercedes", 10));
+        generalKeywords.add(new Keyword("porsche", 10));
+        generalKeywords.add(new Keyword("volkswagen", 10));
+        generalKeywords.add(new Keyword("renault", 10));
 
         try {
             html.query();
@@ -61,15 +79,21 @@ public class Main {
 
         }
 
-        // ! issue: loop can't terminate
         switch (type) {
             case (1):
                 for (Webs i : html.webs) {
 
                     WordCounter count = new WordCounter(i.getUrl());
 
-                    for (Keyword keywords : specsKeywords)
+                    for (Keyword keywords : specsKeywords) {
                         i.addScore(count.countKeyword(keywords));
+                    }
+                    for (Keyword keyword : generalKeywords) {
+                        i.addScore(count.countKeyword(keyword));
+                    }
+                    for (Keyword keyword : unwantedKeywords) {
+                        i.addScore(count.countKeyword(keyword));
+                    }
 
                 }
                 break;
@@ -80,7 +104,12 @@ public class Main {
                     for (Keyword keywords : historyKeywords) {
                         i.addScore(count.countKeyword(keywords));
                     }
-
+                    for (Keyword keyword : generalKeywords) {
+                        i.addScore(count.countKeyword(keyword));
+                    }
+                    for (Keyword keyword : unwantedKeywords) {
+                        i.addScore(count.countKeyword(keyword));
+                    }
                 }
                 break;
             case (2):
@@ -89,14 +118,28 @@ public class Main {
                     for (Keyword keywords : priceKeywords) {
                         i.addScore(count.countKeyword(keywords));
                     }
+                    for (Keyword keyword : generalKeywords) {
+                        i.addScore(count.countKeyword(keyword));
+                    }
+                    for (Keyword keyword : unwantedKeywords) {
+                        i.addScore(count.countKeyword(keyword));
+                    }
                 }
 
         }
+        // general keywords
+        /*
+         * for (Webs i : html.webs) {
+         * WordCounter count = new WordCounter(i.getUrl());
+         * for (Keyword keyword : generalKeywords) {
+         * i.addScore(count.countKeyword(keyword));
+         * }
+         * }
+         */
 
         // filter unwanted result
         /*
-         * for(int iter = 0; iter < 1000; iter++){
-         * Webs i = html.webs.get(iter);
+         * for (Webs i : html.webs) {
          * WordCounter count = new WordCounter(i.getUrl());
          * for (Keyword keyword : unwantedKeywords) {
          * i.addScore(count.countKeyword(keyword));

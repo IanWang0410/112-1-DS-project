@@ -74,7 +74,7 @@ public class HTMLHandler {
                 if (title.equals("")) {
                     continue;
                 }
-                
+
                 System.out.println("Title: " + title + " , url: " + citeUrl);
 
                 webs.add(new Webs(title, citeUrl)); // adding the URLs found to the list
@@ -90,50 +90,51 @@ public class HTMLHandler {
 
     // using in-place quick sort
     public void sortWebs() {
-        if (webs.size() == 0)
-		{
-			System.out.println("InvalidOperation");
-		}
-		else
-		{
-			inPlaceQuickSort(0, webs.size() - 1);
-		}
+        if (webs.size() == 0) {
+            System.out.println("InvalidOperation");
+        } else {
+            inPlaceQuickSort(0, webs.size() - 1);
+        }
     }
 
-    public void inPlaceQuickSort(int l, int r){
-        if(l >= r){
+    // ! Possible defect in inPlaceQuickSort, scores did not sort as expected
+    public void inPlaceQuickSort(int l, int r) {
+        if (l >= r) {
             return;
         }
 
         int piv = r;
-        int j = l, k = r - 1;
-        while (j < k) {
-            while (!(j >= k || webs.get(j).getScore() > webs.get(piv).getScore())) {
+        int j = l;
+        int k = r - 1;
+        while (j <= k) {
+            while (j <= r && webs.get(j).getScore() < webs.get(piv).getScore()) {
                 j++;
             }
-            while (!(j >= k || webs.get(k).getScore() <= webs.get(piv).getScore())) {
+            while (k >= l && webs.get(k).getScore() > webs.get(piv).getScore()) {
                 k--;
             }
-            if (j < k) {
+            if (j <= k) {
                 swap(j, k);
+                j++;
+                k--;
             }
         }
         swap(r, j);
-        inPlaceQuickSort(l, j-1);
-        inPlaceQuickSort(j+1, r);
+        inPlaceQuickSort(l, j - 1);
+        inPlaceQuickSort(j + 1, r);
 
-        for(int i = webs.size()-1; i >= 0; i--){
-            sortedWebs.add(webs.get(i));
-        }
-        
+        /*
+         * for (int i = webs.size() - 1; i >= 0; i--) {
+         * sortedWebs.add(webs.get(i));
+         * }
+         */
 
     }
 
-    private void swap(int aIndex, int bIndex)
-	{
-		Webs temp = webs.get(aIndex);
-		webs.set(aIndex, webs.get(bIndex));
-		webs.set(bIndex, temp);
-	}
+    private void swap(int aIndex, int bIndex) {
+        Webs temp = webs.get(aIndex);
+        webs.set(aIndex, webs.get(bIndex));
+        webs.set(bIndex, temp);
+    }
 
 }
