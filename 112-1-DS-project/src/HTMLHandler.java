@@ -6,6 +6,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -93,11 +94,12 @@ public class HTMLHandler {
         if (webs.size() == 0) {
             System.out.println("InvalidOperation");
         } else {
-            inPlaceQuickSort(0, webs.size() - 1);
+            mergeSort(webs);
         }
     }
 
     // ! Possible defect in inPlaceQuickSort, scores did not sort as expected
+    // ! inPlaceQuickSort deprecated
     public void inPlaceQuickSort(int l, int r) {
         if (l >= r) {
             return;
@@ -131,10 +133,48 @@ public class HTMLHandler {
 
     }
 
+    // ! swap deprecated
+
     private void swap(int aIndex, int bIndex) {
         Webs temp = webs.get(aIndex);
         webs.set(aIndex, webs.get(bIndex));
         webs.set(bIndex, temp);
+    }
+
+    public void mergeSort(ArrayList<Webs> arr) {
+        if (arr.size() <= 1) {
+            return;
+        }
+
+        int middle = arr.size() / 2;
+        ArrayList<Webs> left = new ArrayList<>(arr.subList(0, middle));
+        ArrayList<Webs> right = new ArrayList<>(arr.subList(middle, arr.size()));
+
+        mergeSort(left);
+        mergeSort(right);
+
+        merge(arr, left, right);
+        // Collections.reverse(arr); // to large to small
+    }
+
+    private void merge(ArrayList<Webs> arr, ArrayList<Webs> left, ArrayList<Webs> right) {
+        int i = 0, j = 0, k = 0;
+
+        while (i < left.size() && j < right.size()) {
+            if (left.get(i).getScore() <= right.get(j).getScore()) {
+                arr.set(k++, left.get(i++));
+            } else {
+                arr.set(k++, right.get(j++));
+            }
+        }
+
+        while (i < left.size()) {
+            arr.set(k++, left.get(i++));
+        }
+
+        while (j < right.size()) {
+            arr.set(k++, right.get(j++));
+        }
     }
 
 }

@@ -148,8 +148,8 @@ public class Main {
          */
 
         html.sortWebs();
-        for (int i = 0; i <= html.sortedWebs.size() - 1; i++) {
-            Webs w = html.sortedWebs.get(i);
+        for (int i = html.webs.size() - 1; i >= 0; i--) {
+            Webs w = html.webs.get(i);
             System.out.printf("Title:  %s , URL:  %s , Score: %.2f\n", w.getTitle(), w.getUrl(), w.getScore());
         }
         sc.close();
