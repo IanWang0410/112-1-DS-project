@@ -1,0 +1,3 @@
+HTMLHandler每開始讀一個google上搜到的網頁，就創一個Tree
+    Tree 裡面放google上搜到的網頁及其子網頁還有這些往頁加總得到的總分
+最後的Sort是Sort這些Tree的分數
