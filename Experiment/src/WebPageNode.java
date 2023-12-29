@@ -7,6 +7,7 @@ public class WebPageNode {
     private String title;
     private String url;
     private List<WebPageNode> children;
+    private double score;
 
     public WebPageNode(String title, String url) {
         this.title = title;
@@ -30,7 +31,16 @@ public class WebPageNode {
         children.add(node);
     }
 
-    
+    // by post order traversal
+    public void setScore(){
+        setScore();
+    }
+
+    public void setScore(WebPageNode startNode){
+        
+    }
+
+
 
 
 }
