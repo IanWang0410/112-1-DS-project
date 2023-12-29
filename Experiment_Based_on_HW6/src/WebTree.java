@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class WebTree {
 	public WebNode root;
+    public double treeScore;
 	
 	public WebTree(WebPage rootPage){
 		this.root = new WebNode(rootPage);
@@ -20,6 +21,7 @@ public class WebTree {
 			n.setNodeScore(keywords);
 		}
 		startNode.setNodeScore(keywords);
+        treeScore = startNode.nodeScore;
 		
 	}
 	

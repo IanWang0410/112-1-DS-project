@@ -2,6 +2,7 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/**/*.jar",
+        "c:\\學校相關\\政大\\資結專案\\112-1-DS-project\\112-1-DS-project\\jsoup-1.17.1.jar"
     ]
 }

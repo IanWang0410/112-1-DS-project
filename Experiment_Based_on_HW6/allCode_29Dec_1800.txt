@@ -1,0 +1,215 @@
+public class Keyword {
+	public String name;
+	public double weight;
+	
+	public Keyword(String name, double weight){
+		this.name = name;
+		this.weight = weight;
+	}
+	
+	@Override
+	public String toString(){
+		return "["+name+","+weight+"]";
+	}
+}
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class WebNode {
+	public WebNode parent;
+	public ArrayList<WebNode> children;
+	public WebPage webPage;	
+	public double nodeScore;//This node's score += all its children's nodeScore
+	
+	public WebNode(WebPage webPage){
+		this.webPage = webPage;
+		this.children = new ArrayList<WebNode>();
+	}
+	
+	public void setNodeScore(ArrayList<Keyword> keywords) throws IOException{
+		//this method should be called in post-order mode
+		
+		//compute webPage score
+		webPage.setScore(keywords);
+		//set webPage score to nodeScore
+		nodeScore = webPage.score;		
+		
+		//nodeScore += all children's nodeScore 
+		for(WebNode child : children){
+			nodeScore += child.nodeScore;
+		}		
+	}
+	
+	public void addChild(WebNode child){
+		//add the WebNode to its children list
+		this.children.add(child);
+		child.parent = this;
+	}
+	
+	public boolean isTheLastChild(){
+		if(this.parent == null) return true;
+		ArrayList<WebNode> siblings = this.parent.children;
+		
+		return this.equals(siblings.get(siblings.size() - 1));
+	}
+	
+	public int getDepth(){
+		int retVal = 1;
+		WebNode currNode = this;
+		while(currNode.parent != null){
+			retVal++;
+			currNode = currNode.parent;
+		}
+		return retVal;
+	}
+}
+
+
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class WebPage
+{
+	public String url;
+	public String name;
+	public WordCounter counter;
+	public double score;
+
+	public WebPage(String url, String name)
+	{
+		this.url = url;
+		this.name = name;
+		this.counter = new WordCounter(url);
+	}
+
+	public void setScore(ArrayList<Keyword> keywords) throws IOException
+	{
+		score = 0;
+//		1. calculate score
+		System.out.println("website's name: " + this.name + ", keyword:");
+		for (Keyword k : keywords)
+		{
+			int count=counter.countKeyword(k.name);
+			System.out.println(k.name+" weight: "+k.weight+" count: "+count);
+			score += count * k.weight;
+		}
+		
+	}
+}
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class WebTree {
+	public WebNode root;
+	
+	public WebTree(WebPage rootPage){
+		this.root = new WebNode(rootPage);
+	}
+	
+	public void setPostOrderScore(ArrayList<Keyword> keywords) throws IOException{
+		setPostOrderScore(root, keywords);
+	}
+	
+	private void setPostOrderScore(WebNode startNode, ArrayList<Keyword> keywords) throws IOException{
+		//2. compute the score of children nodes via post-order, then setNodeScore for startNode
+		
+		for(WebNode n: startNode.children) {
+			setPostOrderScore(n, keywords);
+			n.setNodeScore(keywords);
+		}
+		startNode.setNodeScore(keywords);
+		
+	}
+	
+	public void eularPrintTree(){
+		eularPrintTree(root);
+	}
+	
+	private void eularPrintTree(WebNode startNode){
+		int nodeDepth = startNode.getDepth();
+		
+		if(nodeDepth > 1) System.out.print("\n" + repeat("\t", nodeDepth-1));
+
+		System.out.print("(");
+		System.out.print(startNode.webPage.name + "," + startNode.nodeScore);
+		
+		//3. print child via pre-order
+		for(WebNode n: startNode.children) {
+			eularPrintTree(n);
+		}
+		
+		
+		System.out.print(")");
+				
+		if(startNode.isTheLastChild()) System.out.print("\n" + repeat("\t", nodeDepth-2));	
+	}
+	
+	private String repeat(String str, int repeat){
+		String retVal = "";
+		for(int i = 0; i < repeat; i++){
+			retVal += str;
+		}
+		return retVal;
+	}
+}
+
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+
+public class WordCounter {
+	private String urlStr;
+    private String content;
+    
+    public WordCounter(String urlStr){
+    	this.urlStr = urlStr;
+    }
+    
+    private String fetchContent() throws IOException{
+		URL url = new URL(this.urlStr);
+		URLConnection conn = url.openConnection();
+		InputStream in = conn.getInputStream();
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+	
+		String retVal = "";
+	
+		String line = null;
+		
+		while ((line = br.readLine()) != null){
+		    retVal = retVal + line + "\n";
+		}
+	
+		return retVal;
+    }
+    
+    public int countKeyword(String keyword) throws IOException{
+		if (content == null){
+		    content = fetchContent();
+		}
+		
+		//To do a case-insensitive search, we turn the whole content and keyword into upper-case:
+		content = content.toUpperCase();
+		keyword = keyword.toUpperCase();
+	
+		int retVal = 0;
+		int fromIdx = 0;
+		int found = -1;
+	
+		while ((found = content.indexOf(keyword, fromIdx)) != -1){
+		    retVal++;
+		    fromIdx = found + keyword.length();
+		}
+	
+		return retVal;
+    }
+}
