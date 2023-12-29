@@ -9,4 +9,16 @@ class Node extends Webs{
         super(title, url);
         this.children = new ArrayList<>();
     }
+
+    public void setParent(Node parent){
+        this.parent = parent;
+    }
+
+    public void addChild(Node child){
+        children.add(child);
+    }
+
+    public ArrayList<Node> getChildren(){
+        return children;
+    }
 }

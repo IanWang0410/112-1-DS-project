@@ -73,7 +73,6 @@ public class HTMLHandler {
 
         for (Element li : lis) {
             WebTree wt = new WebTree();
-            webTrees.add(wt);
 
             try {
                 String citeUrl = li.select("a").get(0).attr("href").replace("/url?q=", "");
@@ -87,8 +86,7 @@ public class HTMLHandler {
                 
 
 
-                HTMLHandler subPageHandler = new HTMLHandler();
-                subPageHandler.url = citeUrl;
+             
 
                 retVal.put(title, citeUrl);
 
