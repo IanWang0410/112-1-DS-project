@@ -18,9 +18,13 @@ public class HTMLHandler {
     public String searchKeyword;
     public String url;
     public String content;
+    public ArrayList<WebTree> webTrees = new ArrayList<>();
+
+    // !  May be obsolete
     public ArrayList<Webs> webs = new ArrayList<>();
     public ArrayList<Webs> sortedWebs = new ArrayList<>();
-    public WebTree webTree;
+    
+    
 
     public HTMLHandler(String searchKeyword) {
         this.searchKeyword = searchKeyword;
@@ -68,6 +72,9 @@ public class HTMLHandler {
         lis = lis.select(".kCrYT");
 
         for (Element li : lis) {
+            WebTree wt = new WebTree();
+            webTrees.add(wt);
+
             try {
                 String citeUrl = li.select("a").get(0).attr("href").replace("/url?q=", "");
                 String title = li.select("a").get(0).select(".vvjwJb").text();
@@ -77,8 +84,11 @@ public class HTMLHandler {
                 }
 
                 System.out.println("Title: " + title + " , url: " + citeUrl);
+                
 
-                webs.add(new Webs(title, citeUrl)); // adding the URLs found to the list
+
+                HTMLHandler subPageHandler = new HTMLHandler();
+                subPageHandler.url = citeUrl;
 
                 retVal.put(title, citeUrl);
 
@@ -89,7 +99,7 @@ public class HTMLHandler {
         return retVal;
     }
 
-    // using in-place quick sort
+     
     public void sortWebs() {
         if (webs.size() == 0) {
             System.out.println("InvalidOperation");
