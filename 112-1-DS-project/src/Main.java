@@ -52,7 +52,8 @@ public class Main {
 						System.out.println("Please enter at least 1 keyword.");
 						continue;
 					}
-
+					
+					wantedK += ",";
 					String w1 = "";
 					String w2 = "";
 					String w3 = "";
@@ -62,7 +63,7 @@ public class Main {
 						wantedK = wantedK.substring(wantedK.indexOf(",") + 1);
 						w2 = wantedK.substring(0, wantedK.indexOf(","));
 						wantedK = wantedK.substring(wantedK.indexOf(",") + 1);
-						w3 = wantedK.substring(0, wantedK.length());
+						w3 = wantedK.substring(0, wantedK.length()-1);
 					} catch (StringIndexOutOfBoundsException e) {
 
 					}
@@ -95,6 +96,9 @@ public class Main {
 							System.out.println("Please enter at least 1 keyword.");
 							continue;
 						}
+						
+						unwantedK += ",";
+						
 						String uw1 = "";
 						String uw2 = "";
 						String uw3 = "";
@@ -104,7 +108,7 @@ public class Main {
 							unwantedK = unwantedK.substring(unwantedK.indexOf(",") + 1);
 							uw2 = unwantedK.substring(0, unwantedK.indexOf(","));
 							unwantedK = unwantedK.substring(unwantedK.indexOf(",") + 1);
-							uw3 = unwantedK.substring(0, unwantedK.length());
+							uw3 = unwantedK.substring(0, unwantedK.length()-1);
 						} catch (StringIndexOutOfBoundsException e) {
 
 						}
@@ -173,7 +177,7 @@ public class Main {
 
 										tree.setPostOrderScore(keywordList);
 
-										tree.eularPrintTree();
+										System.out.println(tree.eularPrintTree());
 
 										// w.printWebsList();
 									} catch (IOException e) {
