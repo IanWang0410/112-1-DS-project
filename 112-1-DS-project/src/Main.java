@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,8 +9,6 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		URLProcessor u = new URLProcessor();
 		ArrayList<Keyword> keywordList = new ArrayList<>();
-		
-		
 
 		System.out.println("Welcome to car search tool. You can enter \"quit\" to quit the app anytime.");
 		boolean flag = true;
@@ -20,7 +17,7 @@ public class Main {
 				break;
 			}
 			boolean loop = true;
-			
+
 			while (flag && loop) {
 				System.out.println("Please enter the topic you want to search.");
 
@@ -52,7 +49,7 @@ public class Main {
 						System.out.println("Please enter at least 1 keyword.");
 						continue;
 					}
-					
+
 					wantedK += ",";
 					String w1 = "";
 					String w2 = "";
@@ -63,7 +60,7 @@ public class Main {
 						wantedK = wantedK.substring(wantedK.indexOf(",") + 1);
 						w2 = wantedK.substring(0, wantedK.indexOf(","));
 						wantedK = wantedK.substring(wantedK.indexOf(",") + 1);
-						w3 = wantedK.substring(0, wantedK.length()-1);
+						w3 = wantedK.substring(0, wantedK.length() - 1);
 					} catch (StringIndexOutOfBoundsException e) {
 
 					}
@@ -96,9 +93,9 @@ public class Main {
 							System.out.println("Please enter at least 1 keyword.");
 							continue;
 						}
-						
+
 						unwantedK += ",";
-						
+
 						String uw1 = "";
 						String uw2 = "";
 						String uw3 = "";
@@ -108,7 +105,7 @@ public class Main {
 							unwantedK = unwantedK.substring(unwantedK.indexOf(",") + 1);
 							uw2 = unwantedK.substring(0, unwantedK.indexOf(","));
 							unwantedK = unwantedK.substring(unwantedK.indexOf(",") + 1);
-							uw3 = unwantedK.substring(0, unwantedK.length()-1);
+							uw3 = unwantedK.substring(0, unwantedK.length() - 1);
 						} catch (StringIndexOutOfBoundsException e) {
 
 						}
@@ -176,8 +173,7 @@ public class Main {
 										}
 
 										tree.setPostOrderScore(keywordList);
-
-										System.out.println(tree.eularPrintTree());
+										w.score = node.nodeScore;
 
 										// w.printWebsList();
 									} catch (IOException e) {
@@ -185,6 +181,10 @@ public class Main {
 									}
 
 								}
+
+								// TODO present the result
+								google.mergeSort();
+								google.presentResult();
 
 								System.out
 										.println("Enter anything to exit, or enter \"return\" to return to home page.");
