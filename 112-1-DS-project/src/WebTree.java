@@ -34,7 +34,7 @@ public class WebTree {
 		
 		String data = "";
 		data += "(";
-		data += startNode.web.getTitle() + "," + startNode.nodeScore;
+		data += startNode.web.getTitle() + "," + startNode.web.getUrl()+ "," + startNode.nodeScore;
 		
 		for(WebNode n: startNode.children) {
 			eularPrintTree(n);

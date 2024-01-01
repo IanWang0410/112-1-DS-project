@@ -81,7 +81,7 @@ public class Main {
 					while (flag && loop) {
 						System.out.println("");
 						System.out.println(
-								"Please enter AT MOST 3 UNwanted keywords to enhance the result (Put the most important keyword in first. Use comma(,) to seperate).");
+								"(OPTIONAL) Please enter at most 3 UNwanted keywords to enhance the result (Put the most important keyword in first. Use comma(,) to seperate).");
 						System.out.println("Enter \"return\" to return to previous step.");
 
 						String unwantedK = sc.nextLine();
@@ -92,13 +92,10 @@ public class Main {
 						if (unwantedK.equals("return")) {
 							break;
 						}
-						if (unwantedK.strip().equals("")) {
-							System.out.println("Please enter at least 1 keyword.");
-							continue;
+						if (!unwantedK.strip().equals("")) {
+							unwantedK += ",";
 						}
-						
-						unwantedK += ",";
-						
+												
 						String uw1 = "";
 						String uw2 = "";
 						String uw3 = "";
@@ -121,6 +118,8 @@ public class Main {
 							System.out.printf("Your unwanted keywords are:\n 1.%s;\n 2.%s;\n", uw1, uw2);
 						} else if (!uw1.equals("") && uw2.equals("") && uw3.equals("")) {
 							System.out.printf("Your unwanted keywords are:\n 1.%s;\n", uw1);
+						} else if (uw1.equals("") && uw2.equals("") && uw3.equals("")) {
+							System.out.printf("You did not enter unwanted keywords.\n");
 						}
 						while (flag && loop) {
 
@@ -163,6 +162,9 @@ public class Main {
 								if (!uw3.equals("")) {
 									keywordList.add(new Keyword(uw3, -2));
 								}
+								
+								keywordList.add(new Keyword("car ",10));
+								keywordList.add(new Keyword("Power",1));
 
 								for (Web w : google.getSubWebsList()) {
 
