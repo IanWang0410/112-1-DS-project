@@ -134,6 +134,8 @@ public class Main {
 							}
 
 							else {
+
+								System.out.println("Searching...");
 								Web google = new Web(search);
 								try {
 									u.query(google);
