@@ -193,8 +193,14 @@ public class Main {
 								// * new output present
 								mergeSort(websToSort, 0, websToSort.size() - 1);
 
+								int count = 0;
 								for (Web w : websToSort) {
 									System.out.println(w.getTitle() + " " + w.getUrl() + " " + w.score);
+									count++;
+								}
+
+								if (count == 0) {
+									System.out.println("No result found");
 								}
 
 								System.out
