@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,8 +9,6 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		URLProcessor u = new URLProcessor();
 		ArrayList<Keyword> keywordList = new ArrayList<>();
-		
-		
 
 		System.out.println("Welcome to car search tool. You can enter \"quit\" to quit the app anytime.");
 		boolean flag = true;
@@ -20,7 +17,7 @@ public class Main {
 				break;
 			}
 			boolean loop = true;
-			
+
 			while (flag && loop) {
 				System.out.println("Please enter the topic you want to search.");
 
@@ -52,7 +49,7 @@ public class Main {
 						System.out.println("Please enter at least 1 keyword.");
 						continue;
 					}
-					
+
 					wantedK += ",";
 					String w1 = "";
 					String w2 = "";
@@ -63,7 +60,7 @@ public class Main {
 						wantedK = wantedK.substring(wantedK.indexOf(",") + 1);
 						w2 = wantedK.substring(0, wantedK.indexOf(","));
 						wantedK = wantedK.substring(wantedK.indexOf(",") + 1);
-						w3 = wantedK.substring(0, wantedK.length()-1);
+						w3 = wantedK.substring(0, wantedK.length() - 1);
 					} catch (StringIndexOutOfBoundsException e) {
 
 					}
@@ -95,7 +92,7 @@ public class Main {
 						if (!unwantedK.strip().equals("")) {
 							unwantedK += ",";
 						}
-												
+
 						String uw1 = "";
 						String uw2 = "";
 						String uw3 = "";
@@ -105,7 +102,7 @@ public class Main {
 							unwantedK = unwantedK.substring(unwantedK.indexOf(",") + 1);
 							uw2 = unwantedK.substring(0, unwantedK.indexOf(","));
 							unwantedK = unwantedK.substring(unwantedK.indexOf(",") + 1);
-							uw3 = unwantedK.substring(0, unwantedK.length()-1);
+							uw3 = unwantedK.substring(0, unwantedK.length() - 1);
 						} catch (StringIndexOutOfBoundsException e) {
 
 						}
@@ -162,9 +159,11 @@ public class Main {
 								if (!uw3.equals("")) {
 									keywordList.add(new Keyword(uw3, -2));
 								}
-								
-								keywordList.add(new Keyword("car ",10));
-								keywordList.add(new Keyword("Power",1));
+
+								keywordList.add(new Keyword("car ", 10));
+								keywordList.add(new Keyword("Power", 1));
+
+								ArrayList<Web> websToSort = new ArrayList<>();
 
 								for (Web w : google.getSubWebsList()) {
 
@@ -179,13 +178,22 @@ public class Main {
 
 										tree.setPostOrderScore(keywordList);
 
-										System.out.println(tree.eularPrintTree());
+										// !original output present
+										// System.out.println(tree.eularPrintTree());
+
+										websToSort.add(w);
 
 										// w.printWebsList();
 									} catch (IOException e) {
 
 									}
 
+								}
+
+								mergeSort(websToSort, 0, websToSort.size() - 1);
+
+								for (Web w : websToSort) {
+									System.out.println(w.getTitle() + " " + w.getUrl() + " " + w.score);
 								}
 
 								System.out
@@ -210,6 +218,57 @@ public class Main {
 
 		System.out.println("Thank you for using.");
 		sc.close();
+	}
+
+	public static void mergeSort(ArrayList<Web> webs, int left, int right) {
+		if (left < right) {
+			int mid = (left + right) / 2;
+
+			mergeSort(webs, left, mid);
+			mergeSort(webs, mid + 1, right);
+
+			merge(webs, left, mid, right);
+		}
+	}
+
+	private static void merge(ArrayList<Web> webs, int left, int mid, int right) {
+		int n1 = mid - left + 1;
+		int n2 = right - mid;
+
+		ArrayList<Web> leftArr = new ArrayList<>(n1);
+		ArrayList<Web> rightArr = new ArrayList<>(n2);
+
+		for (int i = 0; i < n1; ++i) {
+			leftArr.add(webs.get(left + i));
+		}
+		for (int j = 0; j < n2; ++j) {
+			rightArr.add(webs.get(mid + 1 + j));
+		}
+
+		int i = 0, j = 0;
+		int k = left;
+
+		while (i < n1 && j < n2) {
+			if (leftArr.get(i).score >= rightArr.get(j).score) {
+				webs.set(k, leftArr.get(i));
+				i++;
+			} else {
+				webs.set(k, rightArr.get(j));
+				j++;
+			}
+			k++;
+		}
+
+		while (i < n1) {
+			webs.set(k, leftArr.get(i));
+			i++;
+			k++;
+		}
+		while (j < n2) {
+			webs.set(k, rightArr.get(j));
+			j++;
+			k++;
+		}
 	}
 
 }
