@@ -190,6 +190,7 @@ public class Main {
 
 								}
 
+								// * new output present
 								mergeSort(websToSort, 0, websToSort.size() - 1);
 
 								for (Web w : websToSort) {
