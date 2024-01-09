@@ -163,10 +163,17 @@ public class Main {
 								}
 
 								keywordList.add(new Keyword("car ", 10));
+<<<<<<< HEAD
 								keywordList.add(new Keyword("Power", 1));
 								keywordList.add(new Keyword("TV ", -10));
 								keywordList.add(new Keyword("boat ", -10));
 								keywordList.add(new Keyword("attack ", -10));
+=======
+								keywordList.add(new Keyword("TV ", -10));
+								keywordList.add(new Keyword("boat ", -10));
+								keywordList.add(new Keyword("attack ", -10));
+
+>>>>>>> branch 'master' of https://github.com/IanWang0410/112-1-DS-project.git
 
 								ArrayList<Web> websToSort = new ArrayList<>();
 
@@ -188,7 +195,7 @@ public class Main {
 
 										websToSort.add(w);
 
-										// w.printWebsList();
+										w.printWebsList();
 									} catch (IOException e) {
 
 									}
@@ -197,6 +204,8 @@ public class Main {
 
 								// * new output present
 								mergeSort(websToSort, 0, websToSort.size() - 1);
+
+								System.out.println("\nSearch results: ");
 
 								int count = 0;
 								for (Web w : websToSort) {

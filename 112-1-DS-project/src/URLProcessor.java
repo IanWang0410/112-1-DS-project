@@ -64,7 +64,7 @@ public class URLProcessor {
 					continue;
 				}
 
-				//System.out.println("Title: " + title + " , url: " + citeUrl);
+				System.out.println("Title: " + title + " , url: " + citeUrl);
 
 				w.getSubWebsList().add(new Web(title, citeUrl)); // adding the URLs found to the list
 
