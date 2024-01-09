@@ -33,7 +33,7 @@ public class Main {
 				while (flag && loop) {
 					System.out.println("");
 					System.out.println(
-							"Please enter AT MOST 3 wanted keywords to enhance the result (Put the most important keyword in first. Use comma(,) to seperate ex:engine,cost,$$).");
+							"(OPTIONAL)Please enter AT MOST 3 wanted keywords to enhance the result (Put the most important keyword in first. Use comma(,) to seperate ex:engine,cost,$$).");
 
 					System.out.println("Or enter \"return\" to return to previous step.");
 
@@ -45,12 +45,10 @@ public class Main {
 					if (wantedK.equals("return")) {
 						break;
 					}
-					if (wantedK.strip().equals("")) {
-						System.out.println("Please enter at least 1 keyword.");
-						continue;
+					if (!wantedK.strip().equals("")) {
+						wantedK += ",";
 					}
 
-					wantedK += ",";
 					String w1 = "";
 					String w2 = "";
 					String w3 = "";
@@ -73,6 +71,8 @@ public class Main {
 						System.out.printf("Your wanted keywords are:\n 1.%s;\n 2.%s;\n", w1, w2);
 					} else if (!w1.equals("") && w2.equals("") && w3.equals("")) {
 						System.out.printf("Your wanted keywords are:\n 1.%s;\n", w1);
+					} else if (w1.equals("") && w2.equals("") && w3.equals("")) {
+						System.out.printf("You did not enter wanted keywords.\n");
 					}
 
 					while (flag && loop) {

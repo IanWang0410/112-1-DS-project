@@ -12,7 +12,7 @@ public class Web {
 		this.title = "Google Search";
 		try {
 			String encodeKeyword = java.net.URLEncoder.encode(searchKeyword, "utf-8");
-			this.url = "https://www.google.com/search?q=" + encodeKeyword + "&gl=us&oe=utf8&num=10";
+			this.url = "https://www.google.com/search?q=" + encodeKeyword + "+car" + "&gl=us&oe=utf8&num=15";
 
 		} catch (Exception e) {
 
