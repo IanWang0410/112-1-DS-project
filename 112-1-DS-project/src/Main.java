@@ -164,6 +164,9 @@ public class Main {
 
 								keywordList.add(new Keyword("car ", 10));
 								keywordList.add(new Keyword("Power", 1));
+								keywordList.add(new Keyword("TV ", -10));
+								keywordList.add(new Keyword("boat ", -10));
+								keywordList.add(new Keyword("attack ", -10));
 
 								ArrayList<Web> websToSort = new ArrayList<>();
 
